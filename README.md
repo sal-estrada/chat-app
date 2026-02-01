@@ -99,7 +99,7 @@ The app uses **Firebase** for authentication, data persistence, and media storag
 | Images          | Firebase Cloud Storage        |
 | Cached Messages | AsyncStorage (Local Storage)  | -->
 
----
+<!-- --- -->
 
 <!-- ## 📦 Installation & Setup
 
@@ -124,7 +124,7 @@ expo start
 
 ``` -->
 
----
+<!-- --- -->
 
 <!-- ## 🧪 Testing
 
