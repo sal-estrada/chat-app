@@ -26,6 +26,7 @@ const StartScreen = ({ navigation }) => {
 
         <View style={styles.container}>
           <TextInput
+            
             style={styles.textInput}
             value={name}
             onChangeText={setName}
