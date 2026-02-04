@@ -13,8 +13,7 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.sal21.AwesomeProject"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
