@@ -19,9 +19,7 @@ const StartScreen = ({ navigation }) => {
       source={require("../assets/images/background-image.png")}
       style={styles.backgroundImage}
     >
-
       <SafeAreaView style={styles.safeArea}>
-
         <Text style={styles.titleContainer}>myChat</Text>
 
         <View style={styles.container}>
@@ -36,15 +34,49 @@ const StartScreen = ({ navigation }) => {
           <Text style={styles.chooseText}>Choose Background Color</Text>
 
           <View style={styles.colorButtons}>
-            <TouchableOpacity style={styles.black} onPress={() => setBackgroundColor("#090C08")}></TouchableOpacity>
-            <TouchableOpacity style={styles.purple} onPress={() => setBackgroundColor("#474056")}></TouchableOpacity>
-            <TouchableOpacity style={styles.blue} onPress={() => setBackgroundColor("#8A95A5")}></TouchableOpacity>
-            <TouchableOpacity style={styles.green} onPress={() => setBackgroundColor("#B9C6AE")}></TouchableOpacity>
+            <TouchableOpacity
+              style={styles.black}
+              accessible={true}
+              accessibilityLabel="Black button"
+              accessibilityHint="Lets you choose the color of your chat background."
+              accessibilityRole="button"
+              onPress={() => setBackgroundColor("#090C08")}
+            ></TouchableOpacity>
+            <TouchableOpacity
+              style={styles.purple}
+              accessible={true}
+              accessibilityLabel="Purple button"
+              accessibilityHint="Lets you choose the color of your chat background."
+              accessibilityRole="button"
+              onPress={() => setBackgroundColor("#474056")}
+            ></TouchableOpacity>
+            <TouchableOpacity
+              style={styles.blue}
+              accessible={true}
+              accessibilityLabel="Blue button"
+              accessibilityHint="Lets you choose the color of your chat background."
+              accessibilityRole="button"
+              onPress={() => setBackgroundColor("#8A95A5")}
+            ></TouchableOpacity>
+            <TouchableOpacity
+              style={styles.green}
+              accessible={true}
+              accessibilityLabel="Green button"
+              accessibilityHint="Lets you choose the color of your chat background."
+              accessibilityRole="button"
+              onPress={() => setBackgroundColor("#B9C6AE")}
+            ></TouchableOpacity>
           </View>
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("Chat", { name, backgroundColor })}
+            accessible={true}
+            accessibilityLabel="Start chat button"
+            accessibilityHint="When pressed you start chatting."
+            accessibilityRole="button"
+            onPress={() =>
+              navigation.navigate("Chat", { name, backgroundColor })
+            }
           >
             <Text style={styles.buttonText}>Start Chatting</Text>
           </TouchableOpacity>
@@ -107,7 +139,7 @@ const styles = StyleSheet.create({
     fontSize: "16",
     fontWeight: "300",
     color: "#757083",
-    opacity: "100"
+    opacity: "100",
   },
   black: {
     width: "50",

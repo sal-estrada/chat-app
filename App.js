@@ -3,7 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import StartScreen from "./components/Start";
-import ChatScreen from "./components/Chat";
+import Chat from "./components/Chat";
 
 
 const Stack = createNativeStackNavigator();
@@ -14,7 +14,7 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Start">
           <Stack.Screen name="Start" component={StartScreen} />
-          <Stack.Screen name="Chat" component={ChatScreen} />
+          <Stack.Screen name="Chat" component={Chat} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
