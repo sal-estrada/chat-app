@@ -13,7 +13,7 @@ const App = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Start">
-          <Stack.Screen name="Start" component={StartScreen} />
+          <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }}/>
           <Stack.Screen name="Chat" component={Chat} />
         </Stack.Navigator>
       </NavigationContainer>

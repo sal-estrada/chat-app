@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
 import { GiftedChat, SystemMessage, Bubble } from "react-native-gifted-chat";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Chat = ({ route, navigation }) => {
   const { name, backgroundColor } = route.params;
@@ -78,24 +79,28 @@ const Chat = ({ route, navigation }) => {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor }]}>
       <KeyboardAvoidingView
-        behavior={
-          Platform.OS === "ios" ? (
-            <KeyboardAvoidingView behavior="padding" />
-          ) : null
-        }
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 0}
       >
         <GiftedChat
+          renderSystemMessage={renderSystemMessage}
           messages={messages}
           renderBubble={renderBubble}
           onSend={(messages) => onSend(messages)}
           user={{ _id: 1 }}
-          renderSystemMessage={renderSystemMessage}
+          bottomOffset={Platform.OS === "ios" ? 30 : 0}
+          textInputStyle={{
+            borderRadius: 20, // rounded iOS style
+            paddingHorizontal: 12,
+            backgroundColor: "#f1f1f1",
+          }}
+          alwaysShowSend
         />
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 };
 
