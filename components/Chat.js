@@ -62,20 +62,20 @@ const Chat = ({ route, navigation }) => {
   };
 
   const renderSystemMessage = (props) => {
-  return (
-    <SystemMessage
-      {...props}
-      textStyle={{
-        color: "#555",
-        fontSize: 14,
-        fontStyle: "italic",
-      }}
-      containerStyle={{
-        marginBottom: 10,
-      }}
-    />
-  );
-};
+    return (
+      <SystemMessage
+        {...props}
+        textStyle={{
+          color: "#555",
+          fontSize: 14,
+          fontStyle: "italic",
+        }}
+        containerStyle={{
+          marginBottom: 10,
+        }}
+      />
+    );
+  };
 
   return (
     <View style={[styles.container, { backgroundColor }]}>
@@ -92,8 +92,7 @@ const Chat = ({ route, navigation }) => {
           renderBubble={renderBubble}
           onSend={(messages) => onSend(messages)}
           user={{ _id: 1 }}
-            renderSystemMessage={renderSystemMessage}
-
+          renderSystemMessage={renderSystemMessage}
         />
       </KeyboardAvoidingView>
     </View>
