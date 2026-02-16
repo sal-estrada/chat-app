@@ -6,13 +6,37 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { signInAnonymously } from "firebase/auth";
+import { auth } from "../firebase";
 
 const StartScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
+
+  const startChat = () => {
+    if (!name) {
+      Alert.alert("Please enter a username.");
+      return;
+    }
+
+    signInAnonymously(auth)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        navigation.navigate("Chat", {
+          userID: user.uid,
+          name,
+          backgroundColor,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Alert.alert("Unable to sign in. Please try again.");
+      });
+  };
 
   return (
     <ImageBackground
@@ -74,13 +98,27 @@ const StartScreen = ({ navigation }) => {
             accessibilityLabel="Start chat button"
             accessibilityHint="When pressed you start chatting."
             accessibilityRole="button"
-            onPress={() =>
-              navigation.navigate("Chat", { name, backgroundColor })
-            }
+            onPress={() => {
+              signInAnonymously(auth)
+                .then((userCredential) => {
+                  const user = userCredential.user;
+
+                  if (user) {
+                    navigation.navigate("Chat", {
+                      userID: user.uid,
+                      name: name,
+                      backgroundColor: backgroundColor,
+                    });
+                  }
+                })
+                .catch((error) => {
+                  Alert.alert("Unable to sign in. Please try again.");
+                  console.log(error);
+                });
+            }}
           >
             <Text style={styles.buttonText}>Start Chatting</Text>
           </TouchableOpacity>
-          <TouchableOpacity></TouchableOpacity>
         </View>
       </SafeAreaView>
     </ImageBackground>

@@ -2,9 +2,19 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
 import { GiftedChat, SystemMessage, Bubble } from "react-native-gifted-chat";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  collection,
+  DocumentSnapshot,
+  getDocs,
+  onSnapshot,
+  query,
+  orderBy,
+  addDoc,
+} from "firebase/firestore";
+import { db } from "../firebase";
 
 const Chat = ({ route, navigation }) => {
-  const { name, backgroundColor } = route.params;
+  const { name, backgroundColor, userID } = route.params;
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -12,29 +22,32 @@ const Chat = ({ route, navigation }) => {
   }, [navigation, name]);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "This is a system message",
-        createdAt: new Date(),
-        system: true,
-      },
-      {
-        _id: 2,
-        text: "Hello developer",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
+    const messagesQuery = query(
+      collection(db, "messages"),
+      orderBy("createdAt", "desc"),
+    );
+
+    const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
+      const newMessages = snapshot.docs.map((doc) => {
+        const data = doc.data();
+
+        return {
+          _id: doc.id,
+          text: data.text,
+          createdAt: data.createdAt?.toDate(),
+          user: data.user,
+        };
+      });
+
+      setMessages(newMessages);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const onSend = (newMessages = []) => {
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, newMessages),
+    addDoc(collection(db, "messages"), newMessages[0]).catch((error) =>
+      console.log(error),
     );
   };
 
@@ -90,7 +103,7 @@ const Chat = ({ route, navigation }) => {
           messages={messages}
           renderBubble={renderBubble}
           onSend={(messages) => onSend(messages)}
-          user={{ _id: 1 }}
+          user={{ _id: userID, name:name }}
           bottomOffset={Platform.OS === "ios" ? 30 : 0}
           textInputStyle={{
             borderRadius: 20, // rounded iOS style
