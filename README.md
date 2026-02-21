@@ -9,6 +9,10 @@ This project demonstrates production-ready mobile development practices, real-ti
 ## Live Demo
 > _Coming soon_ (Expo publish / TestFlight / Play Store build)
 
+
+https://github.com/user-attachments/assets/78b261b2-b064-4c7c-9be5-2faca2b009b6
+
+
 ---
 
 ## Project Overview
